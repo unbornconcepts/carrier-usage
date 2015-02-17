@@ -1,7 +1,7 @@
 'use strict';
 
+var _ = require('lodash');
 var Backbone = require('backbone');
-var assign = require('object-assign');
 
 var CHANGE_EVENT = 'change';
 
@@ -20,7 +20,7 @@ var Store = function(methods) {
     console.error('"mixin" cannot be used as a method as it is reserved.');
   }
 
-  assign(this, Backbone.Events, methods || {});
+  _.extend(this, Backbone.Events, methods || {});
 
   this.dispatcherToken = null;
 
