@@ -5,7 +5,7 @@ var Backbone = require('backbone');
 var broker = require('backbone.broker');
 var pageConstants = require('../constants/page');
 var pageDefaults = require('../constants/defaults').page;
-var PayloadSources = require('../constants/payload-sources');
+var payloadSources = require('../constants/payload-sources');
 
 var _page;
 
@@ -18,7 +18,7 @@ var PageStore = new Store({
 
 });
 
-broker.channel(PayloadSources.VIEW_ACTION).subscribe(pageConstants.SET_CURRENT_PAGE, function(payload) {
+broker.channel(payloadSources.VIEW_ACTION).subscribe(pageConstants.SET_CURRENT_PAGE, function(payload) {
 
   var action = payload.action;
 
