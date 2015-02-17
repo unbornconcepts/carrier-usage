@@ -2,18 +2,24 @@
 
 var React = require('react');
 var routeActions = require('./actions/routes');
-var IndexPage = React.createFactory(require('./components/index.jsx'));
+var WelcomePage = React.createFactory(require('./components/welcome.jsx'));
+var HomePage = React.createFactory(require('./components/home.jsx'));
 
 var render = function(Page) {
-  React.render(new Page(), document.getElementById('app-wrapper'));
+  React.render(new Page(), document.getElementById('page-body'));
 };
 
 var index = function() {
-  render(IndexPage);
+  render(WelcomePage);
+};
+
+var home = function() {
+  render(HomePage);
 };
 
 var routes = {
-  '/': index
+  '/': index,
+  '/home': home
 };
 
 module.exports = routes;

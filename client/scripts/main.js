@@ -1,10 +1,14 @@
 'use strict';
 
+var React = require('react');
 var Router = require('director').Router;
 var routes = require('./routes');
 var Dispatcher = require('./dispatchers/default');
 var pageConstants = require('./constants/page');
 var routesConstants = require('./constants/routes');
+
+var IndexPage = React.createFactory(require('./components/index.jsx'));
+React.render(new IndexPage(), document.getElementById('app-wrapper'));
 
 // Setup router
 var router = new Router(routes);
