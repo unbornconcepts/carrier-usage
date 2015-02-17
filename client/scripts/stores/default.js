@@ -1,6 +1,6 @@
 'use strict';
 
-var EventEmitter = require('events').EventEmitter;
+var Backbone = require('backbone');
 var assign = require('object-assign');
 
 var CHANGE_EVENT = 'change';
@@ -20,7 +20,7 @@ var Store = function(methods) {
     console.error('"mixin" cannot be used as a method as it is reserved.');
   }
 
-  assign(this, EventEmitter.prototype, methods || {});
+  assign(this, Backbone.Events, methods || {});
 
   this.dispatcherToken = null;
 
@@ -42,7 +42,7 @@ var Store = function(methods) {
 
   // Emits change event.
   this.emitChange = function() {
-    this.emit(CHANGE_EVENT);
+    this.trigger(CHANGE_EVENT);
   };
 
   // Adds a change listener.
@@ -53,7 +53,7 @@ var Store = function(methods) {
 
   // Removes a change listener.
   this.removeChangeListener = function(callback) {
-    this.removeListener(CHANGE_EVENT, callback);
+    this.off(CHANGE_EVENT, callback);
   };
 
 };

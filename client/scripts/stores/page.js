@@ -1,9 +1,11 @@
 'use strict';
 
 var Store = require('./default');
-var Dispatcher = require('../dispatchers/default');
+var Backbone = require('backbone');
+var broker = require('backbone.broker');
 var pageConstants = require('../constants/page');
 var pageDefaults = require('../constants/defaults').page;
+var PayloadSources = require('../constants/payload-sources');
 
 var _page;
 
@@ -16,15 +18,12 @@ var PageStore = new Store({
 
 });
 
-PageStore.dispatcherToken = Dispatcher.register(function(payload) {
+broker.channel(PayloadSources.VIEW_ACTION).subscribe(pageConstants.SET_CURRENT_PAGE, function(payload) {
 
   var action = payload.action;
 
-  if (action.actionType === pageConstants.SET_CURRENT_PAGE) {
-    _page = action.page;
-
-    PageStore.emitChange();
-  }
+  _page = action.page;
+  PageStore.emitChange();
 
 });
 

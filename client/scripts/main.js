@@ -1,17 +1,21 @@
 'use strict';
 
+var $ = require('jquery');
+var Backbone = require('backbone');
+var broker = require('backbone.broker');
+var router = require('./routes');
 var React = require('react');
-var Router = require('director').Router;
-var routes = require('./routes');
-var Dispatcher = require('./dispatchers/default');
-var pageConstants = require('./constants/page');
 var routesConstants = require('./constants/routes');
+var payloadSources = require('./constants/payload-sources');
+
+Backbone.$ = $;
 
 var IndexPage = React.createFactory(require('./components/index.jsx'));
 React.render(new IndexPage(), document.getElementById('app-wrapper'));
 
-// Setup router
-var router = new Router(routes);
+// Use GET and POST to support all browsers
+// Also adds '_method' parameter with correct HTTP headers
+Backbone.emulateHTTP = true;
 // Enable pushState for compatible browsers
 var enablePushState = true;
 
@@ -20,12 +24,10 @@ var pushState = !!(enablePushState && window.history && window.history.pushState
 
 if (pushState) {
   // Start listening to route changes with pushState
-  router.configure({
-    html5history: true
-  }).init();
+  Backbone.history.start({ pushState: true, root: '/' });
 } else {
   // Start listening to route changes without pushState
-  router.init();
+  Backbone.history.start();
 }
 
 // Handle pushState for incompatible browsers (IE9 and below)
@@ -33,21 +35,10 @@ if (!pushState && window.location.pathname !== '/') {
   window.location.replace('/#' + window.location.pathname);
 }
 
-// Handle route and page changes
-Dispatcher.register(function(payload) {
-
-  var action = payload.action;
-
-  if (action.actionType === routesConstants.SET_CURRENT_ROUTE) {
-    router.setRoute(action.route);
-  }
-
-  else if (action.actionType === pageConstants.SET_CURRENT_PAGE) {
-    // Set current page title
-    document.title = action.page.title;
-  }
-
-  return true; // No errors.  Needed by promise in Dispatcher.
+broker.channel(payloadSources.VIEW_ACTION).subscribe(routesConstants.SET_CURRENT_ROUTE, function(payload) {
+  router.navigate(payload.route, true);
 });
+
+broker.start();
 
 console.log('Welcome to Yeogurt');

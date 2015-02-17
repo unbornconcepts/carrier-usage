@@ -1,16 +1,12 @@
 'use strict';
 
-var Dispatcher = require('flux').Dispatcher;
-var assign = require('object-assign');
-var PayloadSources = require('../constants/payload-sources');
+var broker = require('backbone.broker');
+var payloadSources = require('../constants/payload-sources');
 
-var DefaultDispatcher = assign(new Dispatcher(), {
+var DefaultDispatcher = {
   handleViewAction: function(action) {
-    this.dispatch({
-      source: PayloadSources.VIEW_ACTION,
-      action: action
-    });
+    broker.channel(payloadSources.VIEW_ACTION).publish(action.actionType, action);
   }
-});
+};
 
 module.exports = DefaultDispatcher;
