@@ -10,8 +10,8 @@ var payloadSources = require('./constants/payload-sources');
 
 Backbone.$ = $;
 
-var IndexPage = React.createFactory(require('./components/index.jsx'));
-React.render(new IndexPage(), document.getElementById('app-wrapper'));
+var Index = React.createFactory(require('./components/index.jsx'));
+React.render(new Index(), document.getElementById('app-wrapper'));
 
 // Use GET and POST to support all browsers
 // Also adds '_method' parameter with correct HTTP headers
