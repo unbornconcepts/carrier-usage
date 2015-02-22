@@ -21,6 +21,7 @@ var routes = function(app) {
 
   // Home
   app.get('/', indexController.index);
+  app.get('/app/*', indexController.index);
 
 };
 

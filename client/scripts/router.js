@@ -9,9 +9,12 @@ var pageActions = require('./actions/page');
 var enablePushState = true;
 
 var showPage = function(title) {
+  // using require here for pages is necessary to avoid circular reference with
+  // the link component that handles the page transitions
   var pages = {
     'welcome': React.createFactory(require('./components/welcome.jsx')),
-    'home': React.createFactory(require('./components/home.jsx'))
+    'about': React.createFactory(require('./components/about.jsx')),
+    'docs': React.createFactory(require('./components/docs.jsx'))
   };
   var Page = pages[title];
   pageActions.set({title: title, content: new Page()});
@@ -20,7 +23,7 @@ var showPage = function(title) {
 // Setup router
 var router = new Router({
   '/': _.partial(showPage, 'welcome'),
-  '/home': _.partial(showPage, 'home')
+  '/app/:page': _.partial(showPage)
 });
 
 // Detect is pushState is available

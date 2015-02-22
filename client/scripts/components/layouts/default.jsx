@@ -24,7 +24,6 @@ var DefaultComponent = React.createClass({
         <div className="default">
           <div className="main-container">
             <div className="content">
-              {this.state.title}
               {this.props.children}
             </div>
           </div>
