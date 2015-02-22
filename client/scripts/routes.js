@@ -1,26 +1,53 @@
 'use strict';
 
+var $ = require('jquery');
 var Backbone = require('backbone');
 var React = require('react');
-var routeActions = require('./actions/routes');
-var WelcomePage = React.createFactory(require('./components/welcome.jsx'));
-var HomePage = React.createFactory(require('./components/home.jsx'));
+var pageActions = require('./actions/page');
 
-var render = function(Page) {
-  React.render(new Page(), document.getElementById('page-body'));
-};
+Backbone.$ = $;
 
 var Router = Backbone.Router.extend({
   routes: {
-    '': 'showWelcome',
-    'home': 'showHome'
+    '/': 'welcome',
+    '/app/:page': 'showPage'
   },
+
   showWelcome: function() {
-    render(WelcomePage);
+    this.showPage('welcome');
   },
-  showHome: function() {
-    render(HomePage);
+
+  showPage: function(title) {
+    // using require here for pages is necessary to avoid circular reference with
+    // the link component that handles the page transitions
+    var pages = {
+      'welcome': React.createFactory(require('./components/welcome.jsx')),
+      'about': React.createFactory(require('./components/about.jsx')),
+      'docs': React.createFactory(require('./components/docs.jsx'))
+    };
+    var Page = pages[title];
+    pageActions.set({title: title, content: new Page()});
   }
 });
+
+// Enable pushState for compatible browsers
+var enablePushState = true;
+
+// Detect is pushState is available
+var pushState = !!(enablePushState && window.history && window.history.pushState);
+
+if (pushState) {
+  // Start listening to route changes with pushState
+  Backbone.history.start({ pushState: true, root: '/' });
+} else {
+  // Start listening to route changes without pushState
+  Backbone.history.start();
+}
+
+// Handle pushState for incompatible browsers (IE9 and below)
+if (!pushState && window.location.pathname !== '/') {
+  window.location.replace('/#' + window.location.pathname);
+}
+
 
 module.exports = new Router();

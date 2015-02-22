@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react');
-var router = require('../../router');
+var router = require('../../routes');
 
 
 // Link Component
