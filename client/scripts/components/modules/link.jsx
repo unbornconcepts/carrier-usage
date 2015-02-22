@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react');
-var routeActions = require('../../actions/routes');
+var router = require('../../router');
 
 
 // Link Component
@@ -23,7 +23,7 @@ var LinkComponent = React.createClass({
 
   handleClick: function(e) {
     e.preventDefault();
-    routeActions.setRoute(this.props.url);
+    router.setRoute(this.props.url);
   }
 
 });

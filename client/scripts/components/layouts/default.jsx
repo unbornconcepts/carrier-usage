@@ -24,6 +24,7 @@ var DefaultComponent = React.createClass({
         <div className="default">
           <div className="main-container">
             <div className="content">
+              {this.state.title}
               {this.props.children}
             </div>
           </div>
@@ -32,6 +33,14 @@ var DefaultComponent = React.createClass({
       /* jshint ignore:end */
     );
   },
+  componentDidUpdate: function(prevProps, prevState) {
+    var newState = this.state;
+    if (newState.title === prevState.title) {
+      return;
+    }
+    document.title = newState.title;
+  },
+
   // Event handler for 'change' events coming from store mixins.
   _onChange: function() {
     this.setState(getState());
