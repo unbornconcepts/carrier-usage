@@ -3,20 +3,19 @@
 var React = require('react');
 var pageStore = require('../../stores/page');
 
-var getState = function() {
-  return {
-    title: pageStore.get().title
-  };
-};
-
 var DefaultComponent = React.createClass({
-  mixins: [pageStore.mixin],
   componentDidMount: function() {
-    pageStore.emitChange();
+    pageStore.on('change:title',this._onChange);
   },
+
+  componentWillUnmount: function() {
+    pageStore.off('change:title', this._onChange);
+  },
+
   getInitialState: function() {
-    return getState();
+    return pageStore.toJSON();
   },
+
   render: function() {
     return (
       /* jshint ignore:start */
@@ -32,17 +31,17 @@ var DefaultComponent = React.createClass({
       /* jshint ignore:end */
     );
   },
+
   componentDidUpdate: function(prevProps, prevState) {
     var newState = this.state;
-    if (newState.title === prevState.title) {
-      return;
+    if (newState.title !== prevState.title) {
+      document.title = newState.title;
     }
-    document.title = newState.title;
   },
 
   // Event handler for 'change' events coming from store mixins.
   _onChange: function() {
-    this.setState(getState());
+    this.setState(pageStore.toJSON());
   }
 });
 

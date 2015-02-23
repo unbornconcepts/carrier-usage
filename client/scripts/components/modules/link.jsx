@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react');
-var router = require('../../routes');
+var Backbone = require('backbone');
 
 
 // Link Component
@@ -23,7 +23,7 @@ var LinkComponent = React.createClass({
 
   handleClick: function(e) {
     e.preventDefault();
-    router.setRoute(this.props.url);
+    Backbone.history.navigate(this.props.url, { trigger: true });
   }
 
 });
