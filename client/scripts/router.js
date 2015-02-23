@@ -24,8 +24,7 @@ var Router = Backbone.Router.extend({
       'about': React.createFactory(require('./components/about.jsx')),
       'docs': React.createFactory(require('./components/docs.jsx'))
     };
-    var Page = pages[pageName];
-    this.setPageAction(pageName, Page);
+    this.setPageAction(pageName, pages[pageName]);
   },
 
   setPageAction: function(title, Page) {

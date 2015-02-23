@@ -2,7 +2,6 @@
 
 var _ = require('lodash');
 var broker = require('backbone.broker');
-var routesConstants = require('../constants/routes');
 var payloadSources = require('../constants/payload-sources');
 var pageConstants = require('../constants/page');
 var pageDefaults = require('../constants/defaults').page;
