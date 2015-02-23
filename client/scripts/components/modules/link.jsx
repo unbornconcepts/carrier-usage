@@ -3,7 +3,6 @@
 var React = require('react');
 var Backbone = require('backbone');
 
-
 // Link Component
 // Handles pushState route changes within app
 // Usage: <Link url="/linkUrl">Link Title</Link>
