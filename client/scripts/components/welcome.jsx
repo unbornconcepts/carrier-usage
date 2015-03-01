@@ -1,7 +1,6 @@
 'use strict';
 
 var React = require('react');
-var Link = require('./modules/link.jsx');
 
 var WelcomeComponent = React.createClass({
   render: function() {
@@ -13,10 +12,8 @@ var WelcomeComponent = React.createClass({
           <img src="/images/yeogurt-swirl.png" width="75px" className="logo" />
         </p>
         <p>
-          Choose a page below to learn more!
+          Choose a page from the navigatin bar!
         </p>
-        <Link url="/app/about">About</Link><br/>
-        <Link url="/app/docs">Documentation</Link>
       </div>
       /* jshint ignore:end */
     );

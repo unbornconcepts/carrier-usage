@@ -2,6 +2,7 @@
 
 var React = require('react');
 var pageStore = require('../../stores/page');
+var SideBar = require('../modules/side-bar.jsx');
 
 var DefaultComponent = React.createClass({
   componentDidMount: function() {
@@ -19,13 +20,14 @@ var DefaultComponent = React.createClass({
   render: function() {
     return (
       /* jshint ignore:start */
-      <div>
-        <div className="default">
-          <div className="main-container">
-            <div className="content">
-              {this.props.children}
+      <div id="wrapper">
+        <SideBar></SideBar>
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                  {this.props.children}
+                </div>
             </div>
-          </div>
         </div>
       </div>
       /* jshint ignore:end */
