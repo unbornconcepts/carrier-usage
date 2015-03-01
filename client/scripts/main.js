@@ -5,7 +5,6 @@ var Backbone = require('backbone');
 var broker = require('backbone.broker');
 var router = require('./router');
 var React = require('react');
-var routesConstants = require('./constants/routes');
 var payloadSources = require('./constants/payload-sources');
 
 var Index = React.createFactory(require('./components/index.jsx'));
@@ -35,10 +34,5 @@ if (pushState) {
 if (!pushState && window.location.pathname !== '/') {
   window.location.replace('/#' + window.location.pathname);
 }
-
-broker.channel(payloadSources.VIEW_ACTION).subscribe(routesConstants.SET_CURRENT_ROUTE, function(payload) {
-  router.navigate(payload.route, true);
-});
-
 
 console.log('Welcome to Yeogurt');
