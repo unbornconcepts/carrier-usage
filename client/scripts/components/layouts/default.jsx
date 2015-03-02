@@ -1,16 +1,16 @@
 'use strict';
 
-var React = require('react');
+var React = require('react/addons');
 var pageStore = require('../../stores/page');
 var SideBar = require('../modules/side-bar.jsx');
 
 var DefaultComponent = React.createClass({
   componentDidMount: function() {
-    pageStore.on('change:title',this._onChange);
+    pageStore.on('change:title change:sideBarVisible',this._onChange);
   },
 
   componentWillUnmount: function() {
-    pageStore.off('change:title', this._onChange);
+    pageStore.off('change:title change:sideBarVisible', this._onChange);
   },
 
   getInitialState: function() {
@@ -18,13 +18,14 @@ var DefaultComponent = React.createClass({
   },
 
   render: function() {
+    var classes = this.state.sideBarVisible ? 'toggled' : '';
     return (
       /* jshint ignore:start */
-      <div id="wrapper">
+      <div id="wrapper" className={classes}>
         <SideBar></SideBar>
         <div id="page-content-wrapper">
-          <div class="container-fluid">
-            <div class="row">
+          <div className="container-fluid">
+            <div className="row">
               {this.props.children}
             </div>
           </div>

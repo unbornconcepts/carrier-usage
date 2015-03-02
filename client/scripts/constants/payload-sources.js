@@ -2,7 +2,8 @@
 
 var PayloadSources = {
 
-  VIEW_ACTION: 'VIEW_ACTION'
+  VIEW_ACTION: 'VIEW_ACTION',
+  SIDE_BAR_ACTION: 'SIDE_BAR_ACTION'
 
 };
 
