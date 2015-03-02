@@ -3,6 +3,7 @@
 var React = require('react/addons');
 var pageStore = require('../../stores/page');
 var SideBar = require('../modules/side-bar.jsx');
+var Link = require('../modules/link.jsx');
 
 var DefaultComponent = React.createClass({
   componentDidMount: function() {
@@ -22,7 +23,10 @@ var DefaultComponent = React.createClass({
     return (
       /* jshint ignore:start */
       <div id="wrapper" className={classes}>
-        <SideBar></SideBar>
+        <SideBar>
+          <Link url="/app/about">About</Link>
+          <Link url="/app/docs">Documentation</Link>
+        </SideBar>
         <div id="page-content-wrapper">
           <div className="container-fluid">
             <div className="row">

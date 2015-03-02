@@ -12,8 +12,7 @@ var SideBarComponent = React.createClass({
               <li className="sidebar-brand">
                   <a href="/">Yeogurt</a>
               </li>
-              <Link url="/app/about">About</Link>
-              <Link url="/app/docs">Documentation</Link>
+              {this.props.children}
           </ul>
       </div>
       /* jshint ignore:end */
