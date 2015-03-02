@@ -23,12 +23,13 @@ var DefaultComponent = React.createClass({
       <div id="wrapper">
         <SideBar></SideBar>
         <div id="page-content-wrapper">
-            <div class="container-fluid">
-                <div class="row">
-                  {this.props.children}
-                </div>
+          <div class="container-fluid">
+            <div class="row">
+              {this.props.children}
             </div>
+          </div>
         </div>
+        <code className="version">v0.14.2</code>
       </div>
       /* jshint ignore:end */
     );
